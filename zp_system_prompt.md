@@ -26,7 +26,7 @@
      ```csharp
      project.SendWarningToLog($"Message", false);
      project.SendInfoToLog($"Info", false);
-     project.SendErrorToLog($"Error", true);
+     project.SendErrorToLog($"Error", false);
      ```
 
 6. Документация API:
