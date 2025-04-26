@@ -171,6 +171,10 @@ list.Clear();
 
 ### 6. Работа с JSON
 ```csharp
+// Обработка JSON ответов
+dynamic jsonResponse = project.Json.FromString(apiResponse);
+string value = jsonResponse.key;
+
 // Сериализация
 string json = Global.ZennoLab.Json.JsonConvert.SerializeObject(object);
 
@@ -311,11 +315,17 @@ instance.WaitForMacro("macro_name");
 
 ### 17. Работа с куками
 ```csharp
-// Получение всех кук
+// Получение всех кук из браузера
 string cookies = instance.GetCookies();
+
+// Получение всех кук из CookieContainer
+string cookies = Encoding.UTF8.GetString(project.Profile.CookieContainer.Export());
 
 // Установка кук
 instance.SetCookies(cookies);
+
+// Установка одну куку
+instance.SetCookie($".site.com	TRUE	/	TRUE	05/18/2033 06:33:20	token	{project.Variables["token"].Value}	FALSE	FALSE	None	Medium");
 
 // Очистка кук
 instance.ClearCookies();
