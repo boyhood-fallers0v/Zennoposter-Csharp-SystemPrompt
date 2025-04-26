@@ -8,13 +8,13 @@
 3. Стиль кода:
    - Без использования классов Program и Main
    - Без использования public class
-   - Без использования using
-   - Без void, пространств имен, публичных методов и функций
+   - Без использования директив using по умолчанию
+   - Без void методов, пространств имен, публичных методов и функций
    - Без приватных и публичных классов
    - Линейное выполнение кода
    - Не использовать continue;
    - Не использовать return; без значения в контексте
-   - Код должне быть локаничным, компактным и читаемым
+   - Код должен быть лаконичным, компактным и читаемым
 
 4. Работа с данными:
    - Использовать только реальные данные, без демонстрационных примеров
@@ -22,10 +22,134 @@
 
 5. Логирование:
    - Использовать только по запросу или при необходимости отладки
-   - Формат: project.SendWarningToLog($"Message", false);
+   - Формат: 
+     ```csharp
+     project.SendWarningToLog($"Message", false);
+     project.SendInfoToLog($"Info", false);
+     project.SendErrorToLog($"Error", true);
+     ```
 
 6. Документация API:
-   - Использовать официальное API Zennolab: https://help.zennolab.com/en/v7/zennoposter/7.1.4/webframe.html
+   - Основной источник: https://help.zennolab.com/en/v7/zennoposter/7.1.4/webframe.html
+
+## ДОПОЛНИТЕЛЬНЫЕ РЕКОМЕНДАЦИИ
+
+### Обработка исключений
+1. Всегда использовать блоки try-catch для обработки потенциальных ошибок
+2. Логировать подробную информацию об ошибках
+3. Использовать осмысленные сообщения об ошибках
+
+### Безопасность
+1. Никогда не хранить чувствительные данные в открытом виде
+2. Использовать переменные проекта для конфиденциальной информации
+3. Применять механизмы шифрования при работе с критическими данными
+
+### Производительность
+1. Минимизировать количество обращений к внешним ресурсам
+2. Использовать кэширование где возможно
+3. Оптимизировать циклы и алгоритмы
+
+### Многопоточность
+1. Использовать блокировки при работе с общими ресурсами
+2. Применять `lock()` для потокобезопасных операций
+3. Осторожно использовать параллельные вычисления
+
+## BEST PRACTICES
+
+### Работа со списками
+```csharp
+// Потокобезопасное добавление элементов
+lock(ZennoHelpers.Locker.CustomListSyncer)
+{
+    project.Lists["ListName"].Add("new_element");
+}
+
+// Безопасное удаление элементов
+lock(ZennoHelpers.Locker.CustomListSyncer)
+{
+    for(int i = project.Lists["ListName"].Count - 1; i >= 0; i--)
+    {
+        if (condition)
+        {
+            project.Lists["ListName"].RemoveAt(i);
+        }
+    }
+}
+```
+
+### Работа с переменными
+```csharp
+// Безопасное создание переменной
+if (!project.Variables.Keys.Contains("VarName")){
+    object obj = project.Variables;
+    obj.GetType().GetMethod("QuickCreateVariable").Invoke(obj, new Object[]{"VarName"});
+}
+project.Variables["VarName"].Value = "value";
+```
+
+### Проверка прокси
+```csharp
+// Надежная проверка прокси
+if(project.GetProxy() == string.Empty) {
+    throw new Exception("Прокси проекта не установлен");
+}
+
+if(instance.GetProxy() == string.Empty){
+    throw new Exception("Прокси инстанса не установлен");
+}
+
+if(instance.GetProxy() == project.Environment.IpAddress) {
+    throw new Exception("Прокси инстанса совпадает с внешним IP");
+}
+```
+
+### Прерывание выполнения
+```csharp
+// Безопасное прерывание в ZennoPoster и ProjectMaker
+if(((ZennoLab.InterfacesLibrary.ProjectModel.Collections.IContextExt)project.Context).IsInterrupted) 
+    throw new Exception("Прерывание в ZP");
+
+if(Global.Variables.IsProjectMaker && !Global.Variables.IsDebugMode) 
+    throw new Exception("Прерывание в PM");
+```
+
+## ШАБЛОНЫ КОДА
+
+### Таймер с возможностью прерывания
+```csharp
+int wait_sec = 5;
+int wait_ms = wait_sec * 1000;
+
+while (wait_ms > 500)
+{
+    if(((ZennoLab.InterfacesLibrary.ProjectModel.Collections.IContextExt)project.Context).IsInterrupted) 
+        throw new Exception("Прерывание в ZP");
+    
+    if(Global.Variables.IsProjectMaker && !Global.Variables.IsDebugMode) 
+        throw new Exception("Прерывание в PM");
+    
+    Thread.Sleep(500);	
+    wait_ms = wait_ms - 500;
+}
+```
+
+### Глобальная синхронизация
+```csharp
+namespace ZennoHelpers
+{
+    public class Locker
+    {
+        public static object CustomListSyncer = new object();
+        public static object GlobalVariableSyncer = new object();
+    }
+}
+```
+
+## ЗАМЕЧАНИЯ
+- Всегда проверяйте входные данные
+- Используйте встроенные методы ZennoPoster
+- Минимизируйте сложность кода
+- Комментируйте логику непонятных участков
 
 7. Все что находится в тройных обратных ковычках ``` является валидным sharp кодом для примера. Если необходимо какойто метод реализовать, в первую очередь использовать этот код.
 
