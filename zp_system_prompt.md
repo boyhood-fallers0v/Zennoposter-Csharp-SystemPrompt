@@ -448,8 +448,8 @@ string cookies = Encoding.UTF8.GetString(project.Profile.CookieContainer.Export(
 // Установка кук
 instance.SetCookies(cookies);
 
-// Установка одну куку
-instance.SetCookie($".site.com	TRUE	/	TRUE	05/18/2033 06:33:20	token	{project.Variables["token"].Value}	FALSE	FALSE	None	Medium");
+// Установка одну куку с истечением даты +9000 сукунд от текущей UTC даты
+instance.SetCookie($".site.com\tTRUE\t/\tFALSE\t{DateTime.UtcNow.AddSeconds(9000).ToString("MM/dd/yyyy HH:mm:ss")}\ttoken\t{project.Variables["token"].Value}\tFALSE\tTRUE\tNone\tMedium");
 
 // Очистка кук
 instance.ClearCookies();
