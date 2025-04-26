@@ -296,8 +296,9 @@ list.Clear();
 ### 6. Работа с JSON
 ```csharp
 // Обработка JSON ответов
-dynamic jsonResponse = project.Json.FromString(apiResponse);
-string value = jsonResponse.key;
+project.Json.FromString(apiResponse);
+// Получение значения по ключу
+string value = project.Json.key;
 
 // Сериализация
 string json = Global.ZennoLab.Json.JsonConvert.SerializeObject(object);
