@@ -397,7 +397,10 @@ string result = Regex.Replace(text, pattern, "XXX-XX-XXXX");
 IZennoTable table = project.Tables["MyTable"];
  
 // добавляем новую строку
-table.AddRow("простой текст");
+lock(SyncObjects.ListSyncer)
+{
+    table.AddRow("one;two;three;four");
+}
 
 // Добавить ячейку
 table.SetCell(1, 1, "текст");
