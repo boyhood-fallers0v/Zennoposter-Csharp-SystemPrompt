@@ -540,10 +540,10 @@ while (!condition && (DateTime.Now - startTime).TotalSeconds < 30) {
 ### 24. Работа с буфером обмена
 ```csharp
 // Копирование в буфер обмена
-instance.SetClipboardText("Текст для копирования");
+System.Windows.Forms.Clipboard.SetText("Текст");
 
 // Получение текста из буфера обмена
-string clipboardText = instance.GetClipboardText();
+string clipboardText = System.Windows.Forms.Clipboard.GetText();
 ```
 
 ### 25. Работа с окнами
