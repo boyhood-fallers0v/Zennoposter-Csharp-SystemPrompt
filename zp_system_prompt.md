@@ -494,8 +494,7 @@ project.Profile.Save(path, false, true, false, false, false, true, true, true, t
 Thread.Sleep(5000); // 5 секунд
 
 // Случайная задержка
-Random random = new Random();
-Thread.Sleep(random.Next(3000, 7000)); // от 3 до 7 секунд
+Thread.Sleep(Global.Classes.rnd.Next(3000, 7000)); // от 3 до 7 секунд
 ```
 
 ### 23. Работа с буфером обмена
