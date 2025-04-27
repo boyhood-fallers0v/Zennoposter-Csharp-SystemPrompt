@@ -534,14 +534,7 @@ while (!condition && (DateTime.Now - startTime).TotalSeconds < 30) {
 
 ### 23. Работа с сетью
 ```csharp
-// Проверка доступности сайта
-bool isAvailable = instance.CheckSiteAvailable("https://example.com");
-
-// Получение IP адреса
-string ip = instance.GetIP();
-
-// Проверка скорости соединения
-int speed = instance.CheckConnectionSpeed();
+// 
 ```
 
 ### 24. Работа с буфером обмена
