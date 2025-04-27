@@ -65,16 +65,13 @@ lock(ZennoHelpers.Locker.CustomListSyncer)
     project.Lists["ListName"].Add("new_element");
 }
 
-// Безопасное удаление элементов
-lock(ZennoHelpers.Locker.CustomListSyncer)
+// Безопасное удаление всех элементов
+lock (SyncObjects.ListSyncer)
 {
-    for(int i = project.Lists["ListName"].Count - 1; i >= 0; i--)
-    {
-        if (condition)
-        {
-            project.Lists["ListName"].RemoveAt(i);
-        }
-    }
+	for (int i = project.Lists["ListName"].Count - 1; i >= 0; i--)
+	{
+		project.Lists["ListName"].RemoveAt(i);
+	}
 }
 ```
 
@@ -97,10 +94,6 @@ if(project.GetProxy() == string.Empty) {
 
 if(instance.GetProxy() == string.Empty){
     throw new Exception("Прокси инстанса не установлен");
-}
-
-if(instance.GetProxy() == project.Environment.IpAddress) {
-    throw new Exception("Прокси инстанса совпадает с внешним IP");
 }
 ```
 
@@ -131,18 +124,6 @@ while (wait_ms > 500)
     
     Thread.Sleep(500);	
     wait_ms = wait_ms - 500;
-}
-```
-
-### Глобальная синхронизация
-```csharp
-namespace ZennoHelpers
-{
-    public class Locker
-    {
-        public static object CustomListSyncer = new object();
-        public static object GlobalVariableSyncer = new object();
-    }
 }
 ```
 
