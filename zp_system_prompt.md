@@ -532,12 +532,7 @@ while (!condition && (DateTime.Now - startTime).TotalSeconds < 30) {
 }
 ```
 
-### 23. Работа с сетью
-```csharp
-// 
-```
-
-### 24. Работа с буфером обмена
+### 23. Работа с буфером обмена
 ```csharp
 // Копирование в буфер обмена
 System.Windows.Forms.Clipboard.SetText("Текст");
@@ -546,17 +541,3 @@ System.Windows.Forms.Clipboard.SetText("Текст");
 string clipboardText = System.Windows.Forms.Clipboard.GetText();
 ```
 
-### 25. Работа с окнами
-```csharp
-// Максимизация окна
-instance.MaximizeWindow();
-
-// Минимизация окна
-instance.MinimizeWindow();
-
-// Закрытие окна
-instance.CloseWindow();
-
-// Изменение размера окна
-instance.ResizeWindow(800, 600);
-``` 
