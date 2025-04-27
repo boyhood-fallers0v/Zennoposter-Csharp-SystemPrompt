@@ -343,9 +343,11 @@ long fileSize = new FileInfo(filePath).Length;
 instance.SetProxy("proxy.example.com", 8080, "username", "password");
 
 // Проверка прокси
-if (!instance.CheckProxy()) {
-    throw new Exception("Proxy connection failed");
-}
+string proxy = project.Variables["proxy"].Value;
+try {
+    string content = ZennoPoster.HTTP.Request(ZennoLab.InterfacesLibrary.Enums.Http.HttpMethod.GET, "http://check.zennolab.com/proxy.php", proxy: proxy, Encoding: "UTF-8", respType: ZennoLab.InterfacesLibrary.Enums.Http.ResponceType.HeaderAndBody, Timeout: 3000);
+    project.Variables["IP"].Value = Regex.Match(content, @"([0-9]{1,3}[\.]){3}[0-9]{1,3}").Value ?? "IP не найден";
+} catch { return null; }
 ```
 
 ### 10. Работа с изображениями
@@ -410,15 +412,17 @@ string result = Regex.Replace(text, pattern, "XXX-XX-XXXX");
 
 ### 15. Работа с таблицами
 ```csharp
-// Создание таблицы
+// получаем таблицу по имени «MyTable»
 IZennoTable table = project.Tables["MyTable"];
-table.AddColumn("Column1");
-table.AddColumn("Column2");
+ 
+// добавляем новую строку
+table.AddRow("простой текст");
 
-// Добавление строки
-table.AddRow();
-table.SetCell("Column1", "Value1");
-table.SetCell("Column2", "Value2");
+// Добавить ячейку
+table.SetCell(1, 1, "текст");
+
+// получаем таблицу по имени «MyTable» и получаем количество строк
+int count = project.Tables["MyTable"].RowCount;
 
 // Получение значения
 string value = table.GetCell("Column1", 0);
@@ -427,34 +431,27 @@ string value = table.GetCell("Column1", 0);
 table.SaveToCSV(Path.Combine(project.Directory, "export.csv"));
 ```
 
-### 16. Работа с макросами
+### 16. Работа с ...
 ```csharp
-// Запуск макроса
-instance.Macro("macro_name");
-
-// Запуск макроса с параметрами
-instance.Macro("macro_name", "param1", "param2");
-
-// Ожидание завершения макроса
-instance.WaitForMacro("macro_name");
+// 
 ```
 
 ### 17. Работа с куками
 ```csharp
 // Получение всех кук из браузера
-string cookies = instance.GetCookies();
+string cookies = instance.GetCooki();
 
 // Получение всех кук из CookieContainer
 string cookies = Encoding.UTF8.GetString(project.Profile.CookieContainer.Export());
 
 // Установка кук
-instance.SetCookies(cookies);
+instance.SetCookie(cookies);
 
 // Установка одну куку с истечением даты +9000 сукунд от текущей UTC даты
 instance.SetCookie($".site.com\tTRUE\t/\tFALSE\t{DateTime.UtcNow.AddSeconds(9000).ToString("MM/dd/yyyy HH:mm:ss")}\ttoken\t{project.Variables["token"].Value}\tFALSE\tTRUE\tNone\tMedium");
 
 // Очистка кук
-instance.ClearCookies();
+instance.ClearCookie();
 ```
 
 ### 18. Работа с JavaScript
@@ -503,18 +500,12 @@ try {
 
 ### 21. Работа с профилями
 ```csharp
-// Получение текущего профиля
-string profileName = instance.Profile.Name;
-
 // Загрузка профиля
-instance.LoadProfile("profile_name");
+instance.Profile.Load(("profile_path");
 
 // Сохранение профиля
-instance.SaveProfile();
+project.Profile.Save(path, false, true, false, false, false, true, true, true, true); // Путь, saveProxy, savePlugins, saveLocalStorage, saveTimezone, saveGeoposition, saveSuperCookie, saveFonts, saveWebRtc, saveIndexedDb, saveVariables
 
-// Очистка профиля
-instance.ClearProfile();
-```
 
 ### 22. Работа с таймерами
 ```csharp
@@ -524,12 +515,6 @@ Thread.Sleep(5000); // 5 секунд
 // Случайная задержка
 Random random = new Random();
 Thread.Sleep(random.Next(3000, 7000)); // от 3 до 7 секунд
-
-// Ожидание с таймаутом
-DateTime startTime = DateTime.Now;
-while (!condition && (DateTime.Now - startTime).TotalSeconds < 30) {
-    Thread.Sleep(1000);
-}
 ```
 
 ### 23. Работа с буфером обмена
