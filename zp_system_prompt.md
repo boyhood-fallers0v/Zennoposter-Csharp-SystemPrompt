@@ -150,34 +150,34 @@ project.Variables["имя_переменной"].Value = "новое значе�
 ### 2. Обработка текста (TextProcessing)
 ```csharp
 // Trim - удаление пробелов и символов
-string trimmed = project.TextProcessing.Trim(source, chars, place);
-string trimmedSpaces = project.TextProcessing.Trim(source, place); // для пробелов и переносов строк
+string trimmed = Macros.TextProcessing.Trim(source, chars, place);
+string trimmedSpaces = Macros.TextProcessing.Trim(source, place); // для пробелов и переносов строк
 
 // Replace - замена текста
-string replaced = project.TextProcessing.Replace(source, find, replace, type, take);
+string replaced = Macros.TextProcessing.Replace(source, find, replace, type, take);
 
 // Split - разделение строки
-string[] parts = project.TextProcessing.Split(source, separator, number);
+string[] parts = Macros.TextProcessing.Split(source, separator, number);
 
 // ToTable - конвертация в таблицу
-project.TextProcessing.ToTable(source, rowSplitter, rowType, columnSplitter, columnType, project, table);
+Macros.TextProcessing.ToTable(source, rowSplitter, rowType, columnSplitter, columnType, project, table);
 
 // Translit - транслитерация
-string transliterated = project.TextProcessing.Translit(sourceString);
+string transliterated = Macros.TextProcessing.Translit(sourceString);
 
 // TextTranslate - перевод текста
-string translated = project.TextProcessing.TextTranslate(dllName, text, language);
+string translated = Macros.TextProcessing.TextTranslate(dllName, text, language);
 
 // UrlEncode/UrlDecode - URL-кодирование/декодирование
 string encoded = Macros.TextProcessing.UrlEncode(text, "utf-8");
 string decoded = Macros.TextProcessing.UrlDecode(text, "utf-8");
 
 // ToChar - конвертация в символ
-char character = project.TextProcessing.ToChar(sourceString);
+char character = Macros.TextProcessing.ToChar(sourceString);
 
 // ToUpper/ToLower - изменение регистра
-string upper = project.TextProcessing.ToUpper(source, place);
-string lower = project.TextProcessing.ToLower(source, place);
+string upper = Macros.TextProcessing.ToUpper(source, place);
+string lower = Macros.TextProcessing.ToLower(source, place);
 ```
 
 ### 3. Base64 конвертация
