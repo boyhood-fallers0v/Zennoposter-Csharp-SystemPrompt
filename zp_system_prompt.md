@@ -423,7 +423,7 @@ table.SaveToCSV(Path.Combine(project.Directory, "export.csv"));
 ### 17. Работа с куками
 ```csharp
 // Получение всех кук из браузера
-string cookies = instance.GetCooki();
+string cookies = instance.GetCookie();
 
 // Получение всех кук из CookieContainer
 string cookies = Encoding.UTF8.GetString(project.Profile.CookieContainer.Export());
