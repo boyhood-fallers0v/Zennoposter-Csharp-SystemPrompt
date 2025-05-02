@@ -484,6 +484,24 @@ instance.Profile.Load(("profile_path");
 
 // Сохранение профиля
 project.Profile.Save(path, false, true, false, false, false, true, true, true, true); // Путь, saveProxy, savePlugins, saveLocalStorage, saveTimezone, saveGeoposition, saveSuperCookie, saveFonts, saveWebRtc, saveIndexedDb, saveVariables
+
+// Переменные профиля которые можно поменять
+project.Profile.Login
+project.Profile.Password
+project.Profile.Email
+project.Profile.EmailPassword
+project.Profile.SecretQuestionAnswer1
+project.Profile.SecretQuestionAnswer2
+project.Profile.Language
+project.Profile.Name
+project.Profile.Surname
+project.Profile.NickName
+project.Profile.UserAgent
+project.Profile.UserAgentAppVersion
+project.Profile.HTTPAccept
+project.Profile.AcceptCharset
+project.Profile.AcceptLanguage
+project.Profile.AcceptEncoding
 ```
 
 ### 22. Работа с таймерами
