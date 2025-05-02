@@ -77,12 +77,7 @@ lock (SyncObjects.ListSyncer)
 
 ### Работа с переменными
 ```csharp
-// Безопасное создание переменной
-if (!project.Variables.Keys.Contains("VarName")){
-    object obj = project.Variables;
-    obj.GetType().GetMethod("QuickCreateVariable").Invoke(obj, new Object[]{"VarName"});
-}
-project.Variables["VarName"].Value = "value";
+project.Variables["VarName"].Value = "value"; // Переменная всегда string. Если значение другое, необходимо конвертировать в string
 ```
 
 ### Проверка прокси
