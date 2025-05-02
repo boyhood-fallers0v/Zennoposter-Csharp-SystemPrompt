@@ -480,7 +480,7 @@ try {
 ### 21. Работа с профилями
 ```csharp
 // Загрузка профиля
-instance.Profile.Load(("profile_path");
+project.Profile.Load(("profile_path");
 
 // Сохранение профиля
 project.Profile.Save(path, false, true, false, false, false, true, true, true, true); // Путь, saveProxy, savePlugins, saveLocalStorage, saveTimezone, saveGeoposition, saveSuperCookie, saveFonts, saveWebRtc, saveIndexedDb, saveVariables
