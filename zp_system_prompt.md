@@ -55,26 +55,6 @@
 2. Применять `lock()` для потокобезопасных операций удаления и довления строк со списками привязаных к внешним файлам
 3. Осторожно использовать параллельные вычисления
 
-## BEST PRACTICES
-
-### Работа со списками
-```csharp
-// Потокобезопасное добавление элементов
-lock(ZennoHelpers.Locker.CustomListSyncer)
-{
-    project.Lists["ListName"].Add("new_element");
-}
-
-// Безопасное удаление всех элементов
-lock (SyncObjects.ListSyncer)
-{
-	for (int i = project.Lists["ListName"].Count - 1; i >= 0; i--)
-	{
-		project.Lists["ListName"].RemoveAt(i);
-	}
-}
-```
-
 ### Работа с переменными
 ```csharp
 project.Variables["VarName"].Value = "value"; // Переменная всегда string. Если значение другое, необходимо конвертировать в string
@@ -245,6 +225,7 @@ list.RemoveAt(0);
 // Очистка списка
 list.Clear();
 ```
+Временные списки внутри кода можно объявлять стандартными методами .Net
 
 ### 6. Работа с JSON
 ```csharp
