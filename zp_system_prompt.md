@@ -211,7 +211,7 @@ for (int i = 0; i < maxAttempts; i++) {
 }
 ```
 
-### 5. Работа со списками
+### 5. Работа со списками (известные методы)
 ```csharp
 // Получение списка
 IZennoList list = project.Lists["List"];
