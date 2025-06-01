@@ -276,6 +276,7 @@ long fileSize = new FileInfo(filePath).Length;
 ### 9. Работа с прокси
 ```csharp
 // Установка прокси
+instance.SetProxy("http://username:password@server:port");
 instance.SetProxy("proxy.example.com", 8080, "username", "password");
 
 // Проверка прокси
@@ -387,7 +388,7 @@ string cookies = Encoding.UTF8.GetString(project.Profile.CookieContainer.Export(
 instance.SetCookie(cookies);
 
 // Установка одну куку с истечением даты +9000 сукунд от текущей UTC даты
-instance.SetCookie($".site.com\tTRUE\t/\tFALSE\t{DateTime.UtcNow.AddSeconds(9000).ToString("MM/dd/yyyy HH:mm:ss")}\ttoken\t{project.Variables["token"].Value}\tFALSE\tTRUE\tNone\tMedium");
+instance.SetCookie($".site.com	TRUE	/	FALSE	{DateTime.UtcNow.AddSeconds(9000).ToString("MM/dd/yyyy HH:mm:ss")}	token	{project.Variables["token"].Value}	FALSE	TRUE	None	Medium");
 
 // Очистка кук
 instance.ClearCookie();
@@ -482,3 +483,15 @@ System.Windows.Forms.Clipboard.SetText("Текст");
 string clipboardText = System.Windows.Forms.Clipboard.GetText();
 ```
 
+### 24. Установка заголовков в браузер
+```csharp
+instance.SetHeader("sec-ch-ua", secChUa);
+instance.SetHeader("sec-ch-ua-arch", secChUaArch);
+instance.SetHeader("sec-ch-ua-bitness", secChUaBitness);
+instance.SetHeader("sec-ch-ua-full-version", secChUaFullVersion);
+instance.SetHeader("sec-ch-ua-full-version-list", secChUaFullVersionList);
+instance.SetHeader("sec-ch-ua-mobile", secChUaMobile);
+instance.SetHeader("sec-ch-ua-model", secChUaModel);
+instance.SetHeader("sec-ch-ua-platform", secChUaPlatform);
+instance.SetHeader("sec-ch-ua-platform-version", secChUaPlatformVersion);
+```
