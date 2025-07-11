@@ -371,9 +371,9 @@ string value = table.GetCell("Column1", 0);
 table.SaveToCSV(Path.Combine(project.Directory, "export.csv"));
 ```
 
-### 16. Работа с ...
+### 16. Работа со случайным значением
 ```csharp
-// 
+Random rnd = new Random(System.Threading.Thread.CurrentThread.ManagedThreadId ^ Environment.TickCount ^ Guid.NewGuid().GetHashCode());
 ```
 
 ### 17. Работа с куками
