@@ -394,13 +394,9 @@ instance.SetCookie($".site.com	TRUE	/	FALSE	{DateTime.UtcNow.AddSeconds(9000).To
 instance.ClearCookie();
 ```
 
-### 18. Работа с JavaScript
+### 18. Работа с 
 ```csharp
-// Выполнение JavaScript
-string result = instance.ActiveTab.GetDocumentByAddress("0").ExecuteScript("return document.title;");
 
-// Выполнение асинхронного JavaScript
-string asyncResult = instance.ActiveTab.GetDocumentByAddress("0").ExecuteScriptAsync("return new Promise(resolve => setTimeout(() => resolve('done'), 1000));");
 ```
 
 ### 19. Работа с элементами страницы
